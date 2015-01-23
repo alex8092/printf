@@ -10,7 +10,11 @@ static t_printf_opt		g_opts[] =
 	{ "i", 1, &ft_printf_parse_int },
 	{ "D", 1, &ft_printf_parse_longint },
 	{ "o", 1, &ft_printf_parse_octal },
-	{ "O", 1, &ft_printf_parse_longoctal }
+	{ "O", 1, &ft_printf_parse_longoctal },
+	{ "u", 1, &ft_printf_parse_unsigned },
+	{ "U", 1, &ft_printf_parse_longunsigned },
+	{ "x", 1, &ft_printf_parse_hexa },
+	{ "X", 1, &ft_printf_parse_upperhexa }
 };
 
 static t_bool	f_check_ident(t_printf *inst, size_t i)

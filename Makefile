@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -Ilibft/include
 
 LDFLAGS = rc
 
-LDFLAGS_TEST = -Llibft -lft -L. -lftprintf
+LDFLAGS_TEST = -Llibft -L. -lftprintf -lft 
 
 NAME = libftprintf.a
 

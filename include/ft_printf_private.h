@@ -37,5 +37,10 @@ void			ft_printf_parse_int(void);
 void			ft_printf_parse_longint(void);
 void			ft_printf_parse_octal(void);
 void			ft_printf_parse_longoctal(void);
+void			ft_printf_parse_unsigned(void);
+void			ft_printf_parse_longunsigned(void);
+void			ft_printf_parse_hexa(void);
+void			ft_printf_parse_longhexa(void);
+void			ft_printf_parse_upperhexa(void);
 
 #endif
