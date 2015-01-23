@@ -14,7 +14,9 @@ static t_printf_opt		g_opts[] =
 	{ "u", 1, &ft_printf_parse_unsigned },
 	{ "U", 1, &ft_printf_parse_longunsigned },
 	{ "x", 1, &ft_printf_parse_hexa },
-	{ "X", 1, &ft_printf_parse_upperhexa }
+	{ "X", 1, &ft_printf_parse_upperhexa },
+	{ "c", 1, &ft_printf_parse_char },
+	{ "C", 1, &ft_printf_parse_wchar }
 };
 
 static t_bool	f_check_ident(t_printf *inst, size_t i)
@@ -38,6 +40,7 @@ void			ft_printf_dispatch_arg(void)
 
 	if (!inst)
 		inst = ft_printf_instance();
+	ft_printf_get_flags();
 	i = 0;
 	while (i < nopts)
 	{
