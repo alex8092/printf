@@ -35,10 +35,13 @@ struct			s_printf
 };
 
 t_printf		*ft_printf_instance(void);
+void			ft_printf_get_size(void);
+void			ft_printf_get_precision(void);
 void			ft_printf_dispatch_arg(void);
 void			ft_printf_next(void);
 void			ft_printf_get_flags(void);
 t_bool			ft_printf_has_flag(char c);
+void			ft_printf_disable_flag(char c);
 void			ft_printf_reset_flags(void);
 void			ft_printf_parse_string(void);
 void			ft_printf_parse_wstring(void);

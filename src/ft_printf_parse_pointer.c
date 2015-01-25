@@ -9,7 +9,10 @@ void	ft_printf_parse_pointer(void)
 		inst = ft_printf_instance();
 	ptr = va_arg(inst->args, void *);
 	if (ptr)
-		inst->out->add(inst->out, "0x")->addlx(inst->out, (unsigned long)ptr);
+	{
+		inst->out->v_alternate_form = true;
+		inst->out->addlx(inst->out, (unsigned long)ptr);
+	}
 	else
-		inst->out->add(inst->out, "0x");
+		inst->out->add(inst->out, "0x0");
 }

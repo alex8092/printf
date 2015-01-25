@@ -43,6 +43,24 @@ t_bool			ft_printf_has_flag(char c)
 	return (false);
 }
 
+void			ft_printf_disable_flag(char c)
+{
+	static const size_t	flags_size = sizeof(g_flags) / sizeof(g_flags[0]);
+	size_t				i;
+
+	i = 0;
+	while (i < flags_size)
+	{
+		if (g_flags[i].ident == c)
+		{
+			g_flags[i].active = false;
+			return ;
+		}
+		++i;
+	}
+	return ;
+}
+
 void			ft_printf_get_flags(void)
 {
 	static t_printf		*inst = 0;

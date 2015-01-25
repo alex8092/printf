@@ -1,6 +1,5 @@
 #include "ft_printf_private.h"
 #include "ft_printer.h"
-#include <stdio.h>
 
 static void	ft_printf_next_is_arg(t_printf *inst, char *ptr)
 {
