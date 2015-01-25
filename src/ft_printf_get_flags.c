@@ -3,7 +3,11 @@
 
 static t_printf_flag	g_flags[] =
 {
-	{ '#', false }
+	{ '#', false },
+	{ '+', false },
+	{ ' ', false },
+	{ '0', false },
+	{ '-', false }
 };
 
 static t_bool	ft_printf_is_arg(char c)
@@ -47,4 +51,17 @@ void			ft_printf_get_flags(void)
 		inst = ft_printf_instance();
 	while (ft_printf_is_arg(inst->str[inst->index]))
 		++inst->index;
+}
+
+void			ft_printf_reset_flags(void)
+{
+	static const size_t	flags_size = sizeof(g_flags) / sizeof(g_flags[0]);
+	size_t				i;
+
+	i = 0;
+	while (i < flags_size)
+	{
+		g_flags[i].active = false;
+		++i;
+	}
 }

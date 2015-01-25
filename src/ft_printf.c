@@ -19,5 +19,6 @@ int		ft_printf(const char *format, ...)
 	nprint = inst->out->str->size;
 	ft_sstream_del(inst->out);
 	va_end(inst->args);
+	ft_printf_reset_flags();
 	return (nprint - inst->minus_ret_size);
 }

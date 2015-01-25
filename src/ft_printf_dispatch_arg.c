@@ -41,6 +41,10 @@ void			ft_printf_dispatch_arg(void)
 	if (!inst)
 		inst = ft_printf_instance();
 	ft_printf_get_flags();
+	if (ft_printf_has_flag('+'))
+		inst->out->v_always_sign = true;
+	else if (ft_printf_has_flag('#'))
+		inst->out->v_alternate_form = true;
 	i = 0;
 	while (i < nopts)
 	{
