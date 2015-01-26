@@ -19,7 +19,7 @@ void	ft_printf_get_precision(void)
 		if (precision >= 0)
 		{
 			inst->out->v_precision = precision;
-			inst->out->v_char_fill = ' ';
+			ft_printf_disable_flag('0');
 		}
 	}
 }

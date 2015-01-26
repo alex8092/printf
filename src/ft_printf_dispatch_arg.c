@@ -47,12 +47,14 @@ void			ft_printf_dispatch_arg(void)
 		inst->out->v_alternate_form = true;
 	if (ft_printf_has_flag('-'))
 		inst->out->v_left_align = true;
+	if (ft_printf_has_flag(' '))
+		inst->out->v_space_or_sign = true;
 	if (ft_printf_has_flag('0') && ft_printf_has_flag('-'))
 		ft_printf_disable_flag('0');
 	ft_printf_get_size();
+	ft_printf_get_precision();
 	if (ft_printf_has_flag('0'))
 		inst->out->v_char_fill = '0';
-	ft_printf_get_precision();
 	i = 0;
 	while (i < nopts)
 	{

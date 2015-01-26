@@ -46,11 +46,23 @@ int main(void)
     print_test("%+d", ft_printf("%+d\n", -10), printf("%+d\n", -10));
     print_test("%0+d", ft_printf("%0+d\n", -10), printf("%0+d\n", -10));
     print_test("%0+d", ft_printf("%0+d\n", 10), printf("%0+d\n", 10));
+    print_test("%0+ d", ft_printf("%0+d\n", -10), printf("%0+d\n", -10));
+    print_test("%0+ d", ft_printf("%0+d\n", 10), printf("%0+d\n", 10));
     print_test("%0+15d", ft_printf("%0+15d\n", -10), printf("%0+15d\n", -10));
     print_test("%0+15d", ft_printf("%0+15d\n", 10), printf("%0+15d\n", 10));
     print_test("%0+15d", ft_printf("%0+15d\n", 10), printf("%0+15d\n", 10));
     print_test("%0-+15d", ft_printf("%0-+15d\n", 10), printf("%-+15d\n", 10));
-    print_test("%0-+15d", ft_printf("%0-15d\n", 10), printf("%-15d\n", 10));
-
+    print_test("%0-15d", ft_printf("%0-15d\n", 10), printf("%-15d\n", 10));
+    print_test("%0- 15d", ft_printf("%0- 15d\n", 10), printf("%- 15d\n", 10));
+    print_test("%0+.5d", ft_printf("%0+.5d\n", -10), printf("%+.5d\n", -10));
+    print_test("%0+.5d", ft_printf("%0+.5d\n", 10), printf("%+.5d\n", 10));
+    print_test("%0+ .5d", ft_printf("%0+.5d\n", -10), printf("%+.5d\n", -10));
+    print_test("%0+ .5d", ft_printf("%0+.5d\n", 10), printf("%+.5d\n", 10));
+    print_test("%0+15.5d", ft_printf("%0+15.5d\n", -10), printf("%+15.5d\n", -10));
+    print_test("%0+15.5d", ft_printf("%0+15.5d\n", 10), printf("%+15.5d\n", 10));
+    print_test("%0+15.5d", ft_printf("%0+15.5d\n", 10), printf("%+15.5d\n", 10));
+    print_test("%0-+15.5d", ft_printf("%0-+15.5d\n", 10), printf("%-+15.5d\n", 10));
+    print_test("%0-15.5d", ft_printf("%0-15.5d\n", 10), printf("%-15.5d\n", 10));
+    print_test("%0- 15.5d", ft_printf("%0- 15.5d\n", 10), printf("%- 15.5d\n", 10));
     return (0);
 }
