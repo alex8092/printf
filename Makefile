@@ -1,11 +1,11 @@
 CC = gcc
 LD = ar
 
-CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -I../LibC/include
+CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -I../LibC/include -Wno-format-extra-args -Wno-format
 
 LDFLAGS = rc
 
-LDFLAGS_TEST = -L../LibC -L. -lftprintf -lft 
+LDFLAGS_TEST = -L../LibC -L. -lftprintf -lft
 
 NAME = libftprintf.a
 
