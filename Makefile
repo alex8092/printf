@@ -6,18 +6,18 @@
 #    By: amerle <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/01/28 07:07:14 by amerle            #+#    #+#              #
-#    Updated: 2015/01/28 07:07:15 by amerle           ###   ########.fr        #
+#    Updated: 2015/01/28 07:09:38 by amerle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 LD = ar
 
-CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -I../LibC/include
+CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -Ilibft/include
 
 LDFLAGS = rc
 
-LDFLAGS_TEST = -L../LibC -L. -lftprintf -lft
+LDFLAGS_TEST = -Llibft -L. -lftprintf -lft
 
 NAME = libftprintf.a
 
@@ -68,7 +68,7 @@ OBJS = $(SRCS:.c=.o)
 all: make_lib $(NAME)
 
 make_lib:
-	(cd ../LibC && $(MAKE))
+	(cd libft && $(MAKE))
 
 $(NAME): $(OBJS)
 	$(LD) $(LDFLAGS) $@ $^

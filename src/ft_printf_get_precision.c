@@ -23,11 +23,16 @@ void	ft_printf_get_precision(void)
 	if (inst->str[inst->index] == '.')
 	{
 		++inst->index;
-		precision = ft_atoi(inst->str + inst->index);
-		if (precision < 0)
-			++inst->index;
-		while (inst->str[inst->index] >= '0' && inst->str[inst->index] <= '9')
-			++inst->index;
+		if (inst->str[inst->index] == '*')
+			precision = va_arg(inst->args, int);
+		else
+		{
+			precision = ft_atoi(inst->str + inst->index);
+			if (precision < 0)
+				++inst->index;
+			while (ft_isnum(inst->str[inst->index]))
+				++inst->index;
+		}
 		if (precision >= 0)
 		{
 			inst->out->v_precision = precision;
