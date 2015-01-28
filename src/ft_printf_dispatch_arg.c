@@ -3,20 +3,128 @@
 
 static t_printf_opt		g_opts[] =
 {
-	{ "s", 1, &ft_printf_parse_string },
-	{ "S", 1, &ft_printf_parse_wstring },
-	{ "p", 1, &ft_printf_parse_pointer },
-	{ "d", 1, &ft_printf_parse_int },
-	{ "i", 1, &ft_printf_parse_int },
-	{ "D", 1, &ft_printf_parse_longint },
-	{ "o", 1, &ft_printf_parse_octal },
-	{ "O", 1, &ft_printf_parse_longoctal },
-	{ "u", 1, &ft_printf_parse_unsigned },
-	{ "U", 1, &ft_printf_parse_longunsigned },
-	{ "x", 1, &ft_printf_parse_hexa },
-	{ "X", 1, &ft_printf_parse_upperhexa },
-	{ "c", 1, &ft_printf_parse_char },
-	{ "C", 1, &ft_printf_parse_wchar }
+	{
+		"s", 1,
+		{
+			&ft_printf_parse_string,
+			&ft_printf_parse_wstring, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"S", 1,
+		{
+			&ft_printf_parse_wstring, 0, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"p", 1,
+		{
+			&ft_printf_parse_pointer, 0, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"d", 1,
+		{
+			&ft_printf_parse_int,
+			&ft_printf_parse_longint,
+			&ft_printf_parse_longlong,
+			&ft_printf_parse_int,
+			&ft_printf_parse_int,
+			&ft_printf_parse_intmax,
+			&ft_printf_parse_sizet
+		}
+	},
+	{
+		"i", 1,
+		{
+			&ft_printf_parse_int,
+			&ft_printf_parse_longint,
+			&ft_printf_parse_longlong,
+			&ft_printf_parse_int,
+			&ft_printf_parse_int,
+			&ft_printf_parse_intmax,
+			&ft_printf_parse_sizet
+		}
+	},
+	{
+		"D", 1,
+		{
+			&ft_printf_parse_longint, 0, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"o", 1,
+		{
+			&ft_printf_parse_octal,
+			&ft_printf_parse_longoctal,
+			&ft_printf_parse_longlongoctal,
+			&ft_printf_parse_octal,
+			&ft_printf_parse_octal,
+			&ft_printf_parse_intmaxoctal,
+			&ft_printf_parse_sizetoctal
+		}
+	},
+	{
+		"O", 1,
+		{
+			&ft_printf_parse_longoctal, 0, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"u", 1,
+		{
+			&ft_printf_parse_unsigned,
+			&ft_printf_parse_longunsigned,
+			&ft_printf_parse_ulonglong,
+			&ft_printf_parse_unsigned,
+			&ft_printf_parse_unsigned,
+			&ft_printf_parse_uintmax,
+			&ft_printf_parse_usizet
+		}
+	},
+	{
+		"U", 1,
+		{
+			&ft_printf_parse_longunsigned, 0, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"x", 1,
+		{
+			&ft_printf_parse_hexa,
+			&ft_printf_parse_longhexa,
+			&ft_printf_parse_longlonghexa,
+			&ft_printf_parse_hexa,
+			&ft_printf_parse_hexa,
+			&ft_printf_parse_uintmaxhexa,
+			&ft_printf_parse_sizethexa
+		}
+	},
+	{
+		"X", 1,
+		{
+			&ft_printf_parse_upperhexa,
+			&ft_printf_parse_upperlhexa,
+			&ft_printf_parse_upperllhexa,
+			&ft_printf_parse_upperhexa,
+			&ft_printf_parse_upperhexa,
+			&ft_printf_parse_upperintmaxhexa,
+			&ft_printf_parse_sizethexa
+		}
+	},
+	{
+		"c", 1,
+		{
+			&ft_printf_parse_char,
+			&ft_printf_parse_wchar, 0, 0, 0, 0, 0
+		}
+	},
+	{
+		"C", 1,
+		{
+			&ft_printf_parse_wchar, 0, 0, 0, 0, 0, 0
+		}
+	}
 };
 
 static t_bool	f_check_ident(t_printf *inst, size_t i)
@@ -42,6 +150,7 @@ void			ft_printf_dispatch_arg(void)
 	if (!inst)
 		inst = ft_printf_instance();
 	ft_printf_reset_flags();
+	inst->type_modifier = 0;
 	while (1 && inst->str[inst->index])
 	{
 		last_index = inst->index;
@@ -58,6 +167,7 @@ void			ft_printf_dispatch_arg(void)
 			ft_printf_disable_flag('0');
 		ft_printf_get_size();
 		ft_printf_get_precision();
+		ft_printf_get_typemodifiers();
 		if (ft_printf_has_flag('0'))
 			inst->out->v_char_fill = '0';
 		i = 0;
@@ -66,7 +176,10 @@ void			ft_printf_dispatch_arg(void)
 			if (f_check_ident(inst, i))
 			{
 				inst->index += g_opts[i].size;
-				g_opts[i].parse();
+				if (g_opts[i].parse[inst->type_modifier])
+					g_opts[i].parse[inst->type_modifier]();
+				else
+					g_opts[i].parse[0]();
 				return ;
 			}
 			++i;
