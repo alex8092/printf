@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_parse_sizethexa.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amerle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/28 06:19:27 by amerle            #+#    #+#             */
+/*   Updated: 2015/01/28 06:19:27 by amerle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_private.h"
 
 void	ft_printf_parse_sizethexa(void)
@@ -6,5 +18,5 @@ void	ft_printf_parse_sizethexa(void)
 
 	if (!inst)
 		inst = ft_printf_instance();
-	ft_printf_add_hexa(va_arg(inst->args, size_t));
+	ft_printf_add_hexa(va_arg(inst->args, size_t), 2);
 }

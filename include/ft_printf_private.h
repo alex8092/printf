@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_private.h                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amerle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/28 06:23:40 by amerle            #+#    #+#             */
+/*   Updated: 2015/01/28 06:23:41 by amerle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_PRIVATE_H
 # define FT_PRINTF_PRIVATE_H
 
@@ -48,7 +60,7 @@ void			ft_printf_disable_flag(char c);
 void			ft_printf_reset_flags(void);
 void			ft_printf_add_number(long long number);
 void			ft_printf_add_unumber(unsigned long long number);
-void			ft_printf_add_hexa(long long i);
+void			ft_printf_add_hexa(long long i, int func);
 void			ft_printf_parse_string(void);
 void			ft_printf_parse_wstring(void);
 void			ft_printf_parse_sizet(void);

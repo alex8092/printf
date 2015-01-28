@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_dispatch_arg.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amerle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/28 06:19:24 by amerle            #+#    #+#             */
+/*   Updated: 2015/01/28 06:19:24 by amerle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_private.h"
 #include "ft_common.h"
 
@@ -129,8 +141,9 @@ static t_printf_opt		g_opts[] =
 
 static t_bool	f_check_ident(t_printf *inst, size_t i)
 {
-	size_t	cur = 0;
+	size_t	cur;
 
+	cur = 0;
 	while (cur < g_opts[i].size)
 	{
 		if (inst->str[inst->index + cur] != g_opts[i].ident[cur])
@@ -140,11 +153,50 @@ static t_bool	f_check_ident(t_printf *inst, size_t i)
 	return (true);
 }
 
+static void		f_do(t_printf *inst)
+{
+	ft_printf_get_flags();
+	if (ft_printf_has_flag('+'))
+		inst->out->v_always_sign = true;
+	if (ft_printf_has_flag('#'))
+		inst->out->v_alternate_form = true;
+	if (ft_printf_has_flag('-'))
+		inst->out->v_left_align = true;
+	if (ft_printf_has_flag(' '))
+		inst->out->v_space_or_sign = true;
+	if (ft_printf_has_flag('0') && ft_printf_has_flag('-'))
+		ft_printf_disable_flag('0');
+	ft_printf_get_size();
+	ft_printf_get_precision();
+	ft_printf_get_typemodifiers();
+	if (ft_printf_has_flag('0'))
+		inst->out->v_char_fill = '0';
+}
+
+static void		f_do2(t_printf *inst)
+{
+	const size_t	nopts = sizeof(g_opts) / sizeof(g_opts[0]);
+	size_t			i;
+
+	i = 0;
+	while (i < nopts)
+	{
+		if (f_check_ident(inst, i))
+		{
+			inst->index += g_opts[i].size;
+			if (g_opts[i].parse[inst->type_modifier])
+				g_opts[i].parse[inst->type_modifier]();
+			else
+				g_opts[i].parse[0]();
+			return ;
+		}
+		++i;
+	}
+}
+
 void			ft_printf_dispatch_arg(void)
 {
 	static t_printf		*inst = 0;
-	const size_t		nopts = sizeof(g_opts) / sizeof(g_opts[0]);
-	size_t				i;
 	size_t				last_index;
 
 	if (!inst)
@@ -154,36 +206,8 @@ void			ft_printf_dispatch_arg(void)
 	while (1 && inst->str[inst->index])
 	{
 		last_index = inst->index;
-		ft_printf_get_flags();
-		if (ft_printf_has_flag('+'))
-			inst->out->v_always_sign = true;
-		if (ft_printf_has_flag('#'))
-			inst->out->v_alternate_form = true;
-		if (ft_printf_has_flag('-'))
-			inst->out->v_left_align = true;
-		if (ft_printf_has_flag(' '))
-			inst->out->v_space_or_sign = true;
-		if (ft_printf_has_flag('0') && ft_printf_has_flag('-'))
-			ft_printf_disable_flag('0');
-		ft_printf_get_size();
-		ft_printf_get_precision();
-		ft_printf_get_typemodifiers();
-		if (ft_printf_has_flag('0'))
-			inst->out->v_char_fill = '0';
-		i = 0;
-		while (i < nopts)
-		{
-			if (f_check_ident(inst, i))
-			{
-				inst->index += g_opts[i].size;
-				if (g_opts[i].parse[inst->type_modifier])
-					g_opts[i].parse[inst->type_modifier]();
-				else
-					g_opts[i].parse[0]();
-				return ;
-			}
-			++i;
-		}
+		f_do(inst);
+		f_do2(inst);
 		if (inst->index == last_index)
 			++inst->index;
 	}

@@ -37,7 +37,7 @@ void    print_test(const char *name, int ret, int ret2)
     else if (ret == ret2) { \
         printf("test[%s] -> OK { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
     } else { \
-        printf("test[%s] -> FAIL RETURN { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
+        printf("test[%s] -> \033[33mFAIL RETURN\033[0m { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
     } \
 } \
 
