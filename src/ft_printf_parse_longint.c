@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_parse_longint.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amerle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/28 06:19:26 by amerle            #+#    #+#             */
+/*   Updated: 2015/01/28 06:19:26 by amerle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_private.h"
 
 void	ft_printf_parse_longint(void)
@@ -8,10 +20,5 @@ void	ft_printf_parse_longint(void)
 	if (!inst)
 		inst = ft_printf_instance();
 	value = va_arg(inst->args, long int);
-	if (ft_printf_has_flag('0') && inst->out->v_min_field_width > 0)
-	{
-		if (value < 0 || ft_printf_has_flag('+'))
-			inst->out->v_precision = inst->out->v_min_field_width - 1;
-	}
-	inst->out->addl(inst->out, value);
+	ft_printf_add_number(value);
 }

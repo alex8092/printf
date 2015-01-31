@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_parse_unsigned.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amerle <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/28 06:19:28 by amerle            #+#    #+#             */
+/*   Updated: 2015/01/28 06:19:28 by amerle           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf_private.h"
 
 void	ft_printf_parse_unsigned(void)
@@ -6,7 +18,5 @@ void	ft_printf_parse_unsigned(void)
 
 	if (!inst)
 		inst = ft_printf_instance();
-	inst->out->v_always_sign = false;
-	inst->out->v_space_or_sign = false;
-	inst->out->addui(inst->out, va_arg(inst->args, unsigned int));
+	ft_printf_add_unumber(va_arg(inst->args, unsigned int));
 }

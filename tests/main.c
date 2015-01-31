@@ -36,8 +36,8 @@ void    print_test(const char *name, int ret, int ret2)
     } \
     else if (ret == ret2) { \
         printf("test[%s] -> OK { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
-    } else { \
-        printf("test[%s] -> FAIL RETURN { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
+    } else {
+        printf("test[%s] -> \033[33mFAIL RETURN\033[0m { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2);
     } \
 } \
 
@@ -60,7 +60,7 @@ int main(void)
 
     // % s
     TEST_PRINTF("%s", "hello world !");
-    TEST_PRINTF("%s", 0);
+    TEST_PRINTF("%s", (char *)tmp);
     TEST_PRINTF("%10s", "hello world !");
     TEST_PRINTF("%20s", "hello world !");
     TEST_PRINTF("%-20s", "hello world !");
@@ -317,9 +317,9 @@ int main(void)
     TEST_PRINTF("%0+ x", 10);
     TEST_PRINTF("%0+15x", -10);
     TEST_PRINTF("%0+15x", 10);
-    TEST_PRINTF("%0-+15x", 10);
-    TEST_PRINTF("%0-15x", 10);
-    TEST_PRINTF("%0- 15x", 10);
+    TEST_PRINTF("%-+15x", 10);
+    TEST_PRINTF("%-15x", 10);
+    TEST_PRINTF("%- 15x", 10);
     TEST_PRINTF("%0+.5x", -10);
     TEST_PRINTF("%0+.5x", 10);
     TEST_PRINTF("%0+ .5x", -10);
@@ -327,9 +327,9 @@ int main(void)
     TEST_PRINTF("%0+15.5x", -10);
     TEST_PRINTF("%0+15.5x", 10);
     TEST_PRINTF("%0+15.5x", 10);
-    TEST_PRINTF("%0-+15.5x", 10);
-    TEST_PRINTF("%0-15.5x", 10);
-    TEST_PRINTF("%0- 15.5x", 10);
+    TEST_PRINTF("%-+15.5x", 10);
+    TEST_PRINTF("%-15.5x", 10);
+    TEST_PRINTF("%- 15.5x", 10);
     TEST_PRINTF("%#x", 10);
     TEST_PRINTF("%#x", 0);
     TEST_PRINTF("%#+x", 0);
@@ -342,7 +342,7 @@ int main(void)
     TEST_PRINTF("%#0+15x", 10);
     TEST_PRINTF("%#0-+15x", 10);
     TEST_PRINTF("%#0-15x", 10);
-    TEST_PRINTF("%#0- 15x", 10);
+    TEST_PRINTF("%#- 15x", 10);
     TEST_PRINTF("%#0+.5x", -10);
     TEST_PRINTF("%#0+.5x", 10);
     TEST_PRINTF("%#0+ .5x", -10);
@@ -350,9 +350,9 @@ int main(void)
     TEST_PRINTF("%#0+15.5x", -10);
     TEST_PRINTF("%#0+15.5x", 10);
     TEST_PRINTF("%#0+15.5x", 10);
-    TEST_PRINTF("%#0-+15.5x", 10);
-    TEST_PRINTF("%#0-15.5x", 10);
-    TEST_PRINTF("%#0- 15.5x", 10);
+    TEST_PRINTF("%#-+15.5x", 10);
+    TEST_PRINTF("%#-15.5x", 10);
+    TEST_PRINTF("%#- 15.5x", 10);
 
     // % X
     TEST_PRINTF("%X", 10);
@@ -361,13 +361,11 @@ int main(void)
     TEST_PRINTF("%+X", -10);
     TEST_PRINTF("%0+X", -10);
     TEST_PRINTF("%0+X", 10);
-    TEST_PRINTF("%0+ X", -10);
-    TEST_PRINTF("%0+ X", 10);
     TEST_PRINTF("%0+15X", -10);
     TEST_PRINTF("%0+15X", 10);
-    TEST_PRINTF("%0-+15X", 10);
-    TEST_PRINTF("%0-15X", 10);
-    TEST_PRINTF("%0- 15X", 10);
+    TEST_PRINTF("%-+15X", 10);
+    TEST_PRINTF("%-15X", 10);
+    TEST_PRINTF("%- 15X", 10);
     TEST_PRINTF("%0+.5X", -10);
     TEST_PRINTF("%0+.5X", 10);
     TEST_PRINTF("%0+ .5X", -10);
@@ -375,36 +373,30 @@ int main(void)
     TEST_PRINTF("%0+15.5X", -10);
     TEST_PRINTF("%0+15.5X", 10);
     TEST_PRINTF("%0+15.5X", 10);
-    TEST_PRINTF("%0-+15.5X", 10);
-    TEST_PRINTF("%0-15.5X", 10);
-    TEST_PRINTF("%0- 15.5X", 10);
+    TEST_PRINTF("%-+15.5X", 10);
+    TEST_PRINTF("%-15.5X", 10);
     TEST_PRINTF("%#X", 10);
     TEST_PRINTF("%#X", 0);
     TEST_PRINTF("%#+X", 0);
     TEST_PRINTF("%#+X", -10);
     TEST_PRINTF("%#0+X", -10);
     TEST_PRINTF("%#0+X", 10);
-    TEST_PRINTF("%#0+ X", -10);
-    TEST_PRINTF("%#0+ X", 10);
     TEST_PRINTF("%#0+15X", -10);
     TEST_PRINTF("%#0+15X", 10);
-    TEST_PRINTF("%#0-+15X", 10);
-    TEST_PRINTF("%#0-15X", 10);
-    TEST_PRINTF("%#0- 15X", 10);
+    TEST_PRINTF("%#-+15X", 10);
+    TEST_PRINTF("%#-15X", 10);
     TEST_PRINTF("%#0+.5X", -10);
     TEST_PRINTF("%#0+.5X", 10);
-    TEST_PRINTF("%#0+ .5X", -10);
-    TEST_PRINTF("%#0+ .5X", 10);
     TEST_PRINTF("%#0+15.5X", -10);
     TEST_PRINTF("%#0+15.5X", 10);
     TEST_PRINTF("%#0+15.5X", 10);
-    TEST_PRINTF("%#0-+15.5X", 10);
-    TEST_PRINTF("%#0-15.5X", 10);
-    TEST_PRINTF("%#0- 15.5X", 10);
+    TEST_PRINTF("%#-+15.5X", 10);
+    TEST_PRINTF("%#-15.5X", 10);
 
     // % c
     TEST_PRINTF("%c", 'a');
     TEST_PRINTF("%c", 0);
+<<<<<<< HEAD
     TEST_PRINTF("%+c", 0);
     TEST_PRINTF("%+c", 'z');
     TEST_PRINTF("%+c", 'z');
@@ -426,5 +418,14 @@ int main(void)
     TEST_PRINTF("%-+15.5c", 'a');
     TEST_PRINTF("%-15.5c", 'a');
     TEST_PRINTF("%- 15.5c", 'a');
+=======
+    TEST_PRINTF("%15c", 'z');
+    TEST_PRINTF("%15c", 'a');
+    TEST_PRINTF("%-15c", 'a');
+    TEST_PRINTF("%-15c", 'z');
+    TEST_PRINTF("%c", 200);
+
+    TEST_PRINTF("%llX", (unsigned long long)-1);
+>>>>>>> 195d2272b5419a4481857e0c038d21e8eedd45ff
     return (0);
 }
