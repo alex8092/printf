@@ -1,7 +1,7 @@
 CC = gcc
 LD = ar
 
-CFLAGS = -Wall -Wextra -Werror -g3 -Iinclude -I../LibC/include -Wno-format-extra-args -Wno-format
+CFLAGS = -Wall -Wextra -g3 -Iinclude -I../LibC/include -Wno-format-extra-args -Wno-format
 
 LDFLAGS = rc
 

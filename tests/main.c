@@ -32,12 +32,12 @@ void    print_test(const char *name, int ret, int ret2)
     close(fd); \
     close(fd2); \
     if (ret == ret2 && ft_strcmp(buf, buf2)) { \
-        printf("test[%s] -> \033[33mFAIL\033[0m { \"%.*s\", \"%.*s\" }\n", X, ret, buf, ret, buf2); \
+        printf("test[%s] -> \033[33mFAIL\033[0m { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
     } \
     else if (ret == ret2) { \
-        printf("test[%s] -> OK { \"%.*s\", \"%.*s\" }\n", X, ret, buf, ret, buf2); \
+        printf("test[%s] -> OK { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
     } else { \
-        printf("test[%s] -> FAIL RETURN { \"%.*s\", \"%.*s\" }\n", X, ret, buf, ret, buf2); \
+        printf("test[%s] -> FAIL RETURN { \"%.*s\", \"%.*s\" }\n", X, (int)ret, buf, (int)ret, buf2); \
     } \
 } \
 
@@ -407,24 +407,24 @@ int main(void)
     TEST_PRINTF("%c", 0);
     TEST_PRINTF("%+c", 0);
     TEST_PRINTF("%+c", 'z');
-    TEST_PRINTF("%0+c", 'z');
-    TEST_PRINTF("%0+c", 'a');
-    TEST_PRINTF("%0+ c", 'z');
-    TEST_PRINTF("%0+ c", 'a');
-    TEST_PRINTF("%0+15c", 'z');
-    TEST_PRINTF("%0+15c", 'a');
-    TEST_PRINTF("%0-+15c", 'a');
-    TEST_PRINTF("%0-15c", 'a');
-    TEST_PRINTF("%0- 15c", 'a');
-    TEST_PRINTF("%0+.5c", 'z');
-    TEST_PRINTF("%0+.5c", 'a');
-    TEST_PRINTF("%0+ .5c", 'z');
-    TEST_PRINTF("%0+ .5c", 'a');
-    TEST_PRINTF("%0+15.5c", 'z');
-    TEST_PRINTF("%0+15.5c", 'a');
-    TEST_PRINTF("%0+15.5c", 'a');
-    TEST_PRINTF("%0-+15.5c", 'a');
-    TEST_PRINTF("%0-15.5c", 'a');
-    TEST_PRINTF("%0- 15.5c", 'a');
+    TEST_PRINTF("%+c", 'z');
+    TEST_PRINTF("%+c", 'a');
+    TEST_PRINTF("%+ c", 'z');
+    TEST_PRINTF("%+ c", 'a');
+    TEST_PRINTF("%+15c", 'z');
+    TEST_PRINTF("%+15c", 'a');
+    TEST_PRINTF("%-+15c", 'a');
+    TEST_PRINTF("%-15c", 'a');
+    TEST_PRINTF("%- 15c", 'a');
+    TEST_PRINTF("%+.5c", 'z');
+    TEST_PRINTF("%+.5c", 'a');
+    TEST_PRINTF("%+ .5c", 'z');
+    TEST_PRINTF("%+ .5c", 'a');
+    TEST_PRINTF("%+15.5c", 'z');
+    TEST_PRINTF("%+15.5c", 'a');
+    TEST_PRINTF("%+15.5c", 'a');
+    TEST_PRINTF("%-+15.5c", 'a');
+    TEST_PRINTF("%-15.5c", 'a');
+    TEST_PRINTF("%- 15.5c", 'a');
     return (0);
 }
